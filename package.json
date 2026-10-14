@@ -1,0 +1,28 @@
+{
+  "name": "ceremonia",
+  "private": true,
+  "packageManager": "pnpm@9.12.0",
+  "scripts": {
+    "db:start": "supabase start",
+    "db:stop": "supabase stop",
+    "db:reset": "supabase db reset",
+    "setup:env": "node scripts/setup-env.mjs",
+    "dev": "pnpm --parallel --filter @ceremonia/web --filter @ceremonia/admin dev",
+    "dev:web": "pnpm --filter @ceremonia/web dev",
+    "dev:admin": "pnpm --filter @ceremonia/admin dev",
+    "dev:confirm-payment": "node scripts/dev-confirm-payment.mjs",
+    "build": "pnpm --filter @ceremonia/web build && pnpm --filter @ceremonia/admin build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm --filter @ceremonia/core test && pnpm test:functions",
+    "test:functions": "esbuild supabase/functions/_shared/verify.ts --format=esm --outfile=supabase/functions/_shared/.verify.mjs && node --test supabase/functions/_shared/verify.test.mjs",
+    "test:db": "bash supabase/tests/run.sh && bash supabase/tests/20_concurrency.sh && bash supabase/tests/30_seed.sh"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "supabase": "^2.20.0",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

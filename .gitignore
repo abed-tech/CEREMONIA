@@ -1,0 +1,7 @@
+node_modules
+.next
+.env*.local
+.env
+*.log
+packages/core/test/.core.mjs
+supabase/functions/_shared/.verify.mjs
